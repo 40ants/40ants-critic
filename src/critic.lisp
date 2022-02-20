@@ -227,7 +227,7 @@ Also, you might use this checker in your CI pipeline on the GitHub.
 It might check all pull-requests to ensure the code will remain clean.
 
 To learn more about using it as a part of the GitHub workflow, read
-40ANTS-CI::@CRITIC section.
+40ANTS-CI:@CRITIC section.
 ")
 
 
