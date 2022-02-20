@@ -6,13 +6,16 @@
 
 ## 0.3.0 (2022-02-21)
 
-Now you can ignore critiques by adding a comment before a top-level form.
+* Now you can ignore critiques by adding a comment before a top-level form.
 
 Comments should be in the form like this:
 
-```lisp
-;; ignore-critiques: x-minus-1, optionals, needless-and
-```
+`lisp
+  ;; ignore-critiques: x-minus-1, optionals, needless-and
+`
+
+* Command utility now outputs total number of found problems.
+
 <a id="x-2840ANTS-CRITIC-2FCHANGELOG-3A-3A-7C0-2E2-2E0-7C-2040ANTS-DOC-2FLOCATIVES-3ASECTION-29"></a>
 
 ## 0.2.0 (2022-02-20)
