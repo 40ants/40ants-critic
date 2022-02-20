@@ -1,4 +1,5 @@
-;; Some comment
+;; ignore-critiques: blah, minor
+;; ignore-critiques: another, foo, bar
 (uiop:define-package #:40ants-critic
   (:use #:cl)
   (:nicknames #:40ants-critic/critic)
@@ -8,6 +9,8 @@
                 #:defsection)
   (:import-from #:docs-config
                 #:docs-config)
+  (:import-from #:40ants-critic/forms-reader
+                #:read-forms)
   (:export #:critique-asdf-system
            #:@index
            #:@readme))
@@ -100,41 +103,32 @@
       (print-critique-response critique stream))))
 
 
-(defun critique-file (file &key (out *standard-output*)
-                             (names (lisp-critic:get-pattern-names))
-                             (ignore nil))
+(defun critique-file (filename &key (out *standard-output*)
+                                 (names (lisp-critic:get-pattern-names))
+                                 (ignore nil))
   "Returns a number of found problems."
-  (with-open-file (in file)
-    (let ((eof (list nil))
-          (*package* (find-package "COMMON-LISP-USER"))
-          (filename-already-printed nil)
-          (problems-count 0))
-      
-      (do ((code (read in nil eof) (read in nil eof)))
-          ((eq code eof) (values))
-
-        (when (and (consp code)
-                   (eql (car code)
-                        'in-package))
-          (setf *package*
-                (find-package (second code))))
-        
-        (let ((critiques (remove-ignored (lisp-critic::generate-critiques code names)
-                                         ignore)))
-          (when critiques
-            (unless filename-already-printed
-              (pprint file out)
-              (setf filename-already-printed t))
-            
-            (lisp-critic::print-separator out #\*)
-            
-            (let ((*print-right-margin* lisp-critic::*output-width*))
-              (pprint code out))
-            (print-critique-responses critiques out)
-            (incf problems-count
-                  (length critiques)))))
-
-      (values problems-count))))
+  (let ((filename-already-printed nil)
+        (problems-count 0))
+    
+    (loop for (code form-ignore) in (read-forms filename)
+          for all-critiques = (lisp-critic::generate-critiques code names)
+          for critiques = (remove-ignored all-critiques
+                                          (append ignore
+                                                  form-ignore))
+          when critiques
+            do (unless filename-already-printed
+                 (pprint filename out)
+                 (setf filename-already-printed t))
+               
+               (lisp-critic::print-separator out #\*)
+               
+               (let ((*print-right-margin* lisp-critic::*output-width*))
+                 (pprint code out))
+               (print-critique-responses critiques out)
+               (incf problems-count
+                     (length critiques)))
+    
+    (values problems-count)))
 
 
 (defun critique-asdf-system (name &key
@@ -261,3 +255,24 @@ Found 1 scripts: lisp-critic
 
 (defsection @api (:title "API")
   (critique-asdf-system function))
+
+
+
+;; (:RESULT (1 "string")
+;;  :SOURCE (0 . 24)
+;;  :CHILDREN ((:RESULT 1
+;;              :SOURCE (1 . 2) :CHILDREN NIL)
+;;             (:REASON :BLOCK-COMMENT
+;;              :SOURCE (3 . 14))
+;;             (:RESULT "string"
+;;              :SOURCE (15 . 23)
+;;              :CHILDREN NIL)))
+
+
+;; (:RESULT (DEFUN FOO () :BAR) :SOURCE (16 . 35) :CHILDREN
+;;  ((:RESULT DEFUN :SOURCE (17 . 22) :CHILDREN NIL)
+;;   (:RESULT FOO :SOURCE (23 . 26) :CHILDREN NIL)
+;;   (:RESULT NIL :SOURCE (27 . 29) :CHILDREN NIL)
+;;   (:RESULT :BAR :SOURCE (30 . 34) :CHILDREN NIL)))
+
+;; ((:REASON (:LINE-COMMENT . 2) :SOURCE (0 . 16)))
