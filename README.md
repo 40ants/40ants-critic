@@ -83,7 +83,7 @@ There's no need for LET* here. Use LET unless you can't.
 
 <a id="x-2840ANTS-CRITIC-3ACRITIQUE-ASDF-SYSTEM-20FUNCTION-29"></a>
 
-### [function](e204) `40ants-critic:critique-asdf-system` name &key (out \*standard-output\*) (ignore nil)
+### [function](bf62) `40ants-critic:critique-asdf-system` name &key (out \*standard-output\*) (ignore nil)
 
 Outputs advices on how given `ASDF` system can be improved.
 This function analyzes all lisp files of the given system and
@@ -103,7 +103,7 @@ Result of the function is number of found problems.
 [821a]: https://40ants.com/40ants-critic/
 [c8a0]: https://40ants.com/40ants-critic/#x-2840ANTS-CRITIC-3ACRITIQUE-ASDF-SYSTEM-20FUNCTION-29
 [4062]: https://github.com/40ants/40ants-critic
-[e204]: https://github.com/40ants/40ants-critic/blob/f713e85ccc00d1afead1de0e87c2f417fd88a0e0/src/critic.lisp#L134
+[bf62]: https://github.com/40ants/40ants-critic/blob/472865a60f38ec69cbea542cb6de62f89a86b83d/src/critic.lisp#L134
 [795a]: https://github.com/roswell/roswell
 [2a0d]: https://ultralisp.org
 
