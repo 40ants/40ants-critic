@@ -2,6 +2,8 @@
   (:use #:cl)
   (:import-from #:40ants-ci/jobs/linter
                 #:linter)
+  (:import-from #:40ants-ci/jobs/critic
+                #:critic)
   (:import-from #:40ants-ci/jobs/run-tests
                 #:run-tests)
   (:import-from #:40ants-ci/jobs/docs
@@ -24,5 +26,6 @@
   :on-pull-request t
   :cache t
   :jobs ((linter)
+         (critic)
          ;; (run-tests :coverage t)
          ))
