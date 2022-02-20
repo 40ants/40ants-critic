@@ -192,7 +192,8 @@
 (defsection-copy @readme @index)
 
 
-(defsection @installation (:title "Installation")
+(defsection @installation (:title "Installation"
+                           :external-docs ("https://40ants.com/ci/"))
   "This system can be installed from [Ultralisp](https://ultralisp.org) like this:
 
 ```lisp
@@ -221,6 +222,12 @@ To load \"40ants-critic\":
 Found 1 scripts: lisp-critic
 /Users/art/.roswell/bin/lisp-critic
 ```
+
+Also, you might use this checker in your CI pipeline on the GitHub.
+It might check all pull-requests to ensure the code will remain clean.
+
+To learn more about using it as a part of the GitHub workflow, read
+40ANTS-CI::@CRITIC section.
 ")
 
 
