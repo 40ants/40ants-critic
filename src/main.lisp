@@ -19,4 +19,7 @@
   (let* ((ignore (split-by-comma ignore))
          (num-problems (40ants-critic:critique-asdf-system asdf-system
                                                            :ignore ignore)))
+    (unless (zerop num-problems)
+      (format t "~2&Total: ~A problem~:P~%"
+              num-problems))
     (uiop:quit num-problems)))

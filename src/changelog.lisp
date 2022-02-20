@@ -8,13 +8,15 @@
 
 (defchangelog ()
   (0.3.0 2022-02-21
-         "Now you can ignore critiques by adding a comment before a top-level form.
+         "* Now you can ignore critiques by adding a comment before a top-level form.
 
-          Comments should be in the form like this:
+            Comments should be in the form like this:
 
-          ```lisp
-          ;; ignore-critiques: x-minus-1, optionals, needless-and
-          ```")
+            ```lisp
+            ;; ignore-critiques: x-minus-1, optionals, needless-and
+            ```
+
+          * Command utility now outputs total number of found problems.")
   (0.2.0 2022-02-20
          "Now it is possible to ignore some critiques, using IGNORE argument
           of 40ANTS-CRITIC:CRITIQUE-ASDF-SYSTEM function or `--ignore` command line option.")
