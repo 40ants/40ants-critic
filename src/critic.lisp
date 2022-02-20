@@ -1,3 +1,4 @@
+;; Some comment
 (uiop:define-package #:40ants-critic
   (:use #:cl)
   (:nicknames #:40ants-critic/critic)
@@ -101,7 +102,7 @@
   (asdf:load-system name)
   
   (loop for filename in (asdf-system-files name)
-        for num-problems = (critique-file filename)
+        for num-problems = (critique-file filename out)
         summing num-problems))
 
 
