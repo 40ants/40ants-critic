@@ -51,7 +51,58 @@
               collect (asdf:component-pathname component)))))
 
 
-(defun critique-file (file &optional (out *standard-output*) (names (lisp-critic:get-pattern-names)))
+(defun critique-name (note)
+  "Returns the \"critique\" code as a lowercased string"
+  (string-downcase (symbol-name (lisp-critic::critique-name note))))
+
+
+(defun remove-ignored (critics ignore)
+  (flet ((should-be-ignored (critique)
+           (let ((code (critique-name critique)))
+             (member code ignore
+                     :test #'string-equal))))
+    (remove-if #'should-be-ignored critics)))
+
+
+(defun make-response-string (name response blist)
+  (let ((format-string (lisp-critic:response-format-string response))
+        (pattern (extend-match::instantiate-pattern (lisp-critic::response-args response)
+                                                    blist)))
+    (format nil "~&[~A]: ~?"
+            (string-downcase (symbol-name name))
+            format-string
+            pattern)))
+
+
+(defun print-critique-response (critique
+                                &optional (stream *standard-output*))
+  (let ((name (lisp-critic::critique-name critique))
+        (blist (lisp-critic::critique-blist critique))
+        (code (lisp-critic::critique-code critique)))
+    (let ((response (lisp-critic::get-response name)))
+      (cond ((null response)
+             (let ((*print-lines* 2) (*print-pretty* t)
+                   (*print-right-margin* lisp-critic::*output-width*))
+               (format stream "~&~A: Code: ~W" name code)))
+            (t
+             (write-wrap:write-wrap stream
+                                    (make-response-string name response blist)
+                                    lisp-critic::*output-width*)))
+      (lisp-critic::print-separator stream))))
+
+
+(defun print-critique-responses (critiques
+                                 &optional (stream *standard-output*))
+  (let ((*print-pretty* nil))
+    (when critiques
+      (lisp-critic::print-separator stream))
+    (dolist (critique critiques)
+      (print-critique-response critique stream))))
+
+
+(defun critique-file (file &key (out *standard-output*)
+                             (names (lisp-critic:get-pattern-names))
+                             (ignore nil))
   "Returns a number of found problems."
   (with-open-file (in file)
     (let ((eof (list nil))
@@ -68,7 +119,8 @@
           (setf *package*
                 (find-package (second code))))
         
-        (let ((critiques (lisp-critic::generate-critiques code names)))
+        (let ((critiques (remove-ignored (lisp-critic::generate-critiques code names)
+                                         ignore)))
           (when critiques
             (unless filename-already-printed
               (pprint file out)
@@ -78,31 +130,38 @@
             
             (let ((*print-right-margin* lisp-critic::*output-width*))
               (pprint code out))
-            (lisp-critic::print-critique-responses critiques out)
+            (print-critique-responses critiques out)
             (incf problems-count
                   (length critiques)))))
 
       (values problems-count))))
 
 
-(defun critique-asdf-system (name &optional (out *standard-output*))
+(defun critique-asdf-system (name &key
+                                    (out *standard-output*)
+                                    (ignore nil))
   "Outputs advices on how given ASDF system can be improved.
    This function analyzes all lisp files of the given system and
    outputs advices on how code might be improved.
 
    NAME argument should be a string or symbol designator of ASDF system.
 
+   IGNORE argument can be a list of string. Each string should be a code
+   shown in the square brackets in the critique output.
+
    OUT argument is optional. It should be an output stream to write
    advices to.
 
    Result of the function is number of found problems."
   #+quicklisp
-  (ql:quickload name)
+  (ql:quickload name :silent t)
   #-quicklisp
   (asdf:load-system name)
   
   (loop for filename in (asdf-system-files name)
-        for num-problems = (critique-file filename out)
+        for num-problems = (critique-file filename
+                                          :out out
+                                          :ignore ignore)
         summing num-problems))
 
 
