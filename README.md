@@ -83,13 +83,16 @@ There's no need for LET* here. Use LET unless you can't.
 
 <a id="x-2840ANTS-CRITIC-3ACRITIQUE-ASDF-SYSTEM-20FUNCTION-29"></a>
 
-### [function](33b8) `40ants-critic:critique-asdf-system` name &optional (out \*standard-output\*)
+### [function](fdd0) `40ants-critic:critique-asdf-system` name &key (out \*standard-output\*) (ignore nil)
 
 Outputs advices on how given `ASDF` system can be improved.
 This function analyzes all lisp files of the given system and
 outputs advices on how code might be improved.
 
 `NAME` argument should be a string or symbol designator of `ASDF` system.
+
+`IGNORE` argument can be a list of string. Each string should be a code
+shown in the square brackets in the critique output.
 
 `OUT` argument is optional. It should be an output stream to write
 advices to.
@@ -100,7 +103,7 @@ Result of the function is number of found problems.
 [821a]: https://40ants.com/40ants-critic/
 [c8a0]: https://40ants.com/40ants-critic/#x-2840ANTS-CRITIC-3ACRITIQUE-ASDF-SYSTEM-20FUNCTION-29
 [4062]: https://github.com/40ants/40ants-critic
-[33b8]: https://github.com/40ants/40ants-critic/blob/f7ef62630e92d2707f9f719bd905fa645e3153ca/src/critic.lisp#L88
+[fdd0]: https://github.com/40ants/40ants-critic/blob/9a0f30c033dc518046ab22a8b51696e1e076937e/src/critic.lisp#L140
 [795a]: https://github.com/roswell/roswell
 [2a0d]: https://ultralisp.org
 
