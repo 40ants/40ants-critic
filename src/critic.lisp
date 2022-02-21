@@ -43,8 +43,8 @@
                             ;; We only interested in components of the
                             ;; same ASDF primary system, because
                             ;; we don't want to critic all system dependencies:
-                            (equal (asdf:primary-system-name system)
-                                   primary-system-name))
+                            (string-equal (asdf:primary-system-name system)
+                                          primary-system-name))
                    (append (asdf:module-components system)
                            (loop for component in (asdf:component-sideway-dependencies system)
                                  ;; for component-system = (asdf:find-system component)
@@ -103,6 +103,12 @@
       (print-critique-response critique stream))))
 
 
+;; This critique is wrong, because it relates to the DO form,
+;; not to the LOOP's DO:
+;; ignore-critiques: do-with-body
+;; 
+;; Function is a little bit long, but not critical yet:
+;; ignore-critiques: function-too-long
 (defun critique-file (filename &key (out *standard-output*)
                                  (names (lisp-critic:get-pattern-names))
                                  (ignore nil))
@@ -277,24 +283,3 @@ To learn more about using it as a part of the GitHub workflow, read
 
 (defsection @api (:title "API")
   (critique-asdf-system function))
-
-
-
-;; (:RESULT (1 "string")
-;;  :SOURCE (0 . 24)
-;;  :CHILDREN ((:RESULT 1
-;;              :SOURCE (1 . 2) :CHILDREN NIL)
-;;             (:REASON :BLOCK-COMMENT
-;;              :SOURCE (3 . 14))
-;;             (:RESULT "string"
-;;              :SOURCE (15 . 23)
-;;              :CHILDREN NIL)))
-
-
-;; (:RESULT (DEFUN FOO () :BAR) :SOURCE (16 . 35) :CHILDREN
-;;  ((:RESULT DEFUN :SOURCE (17 . 22) :CHILDREN NIL)
-;;   (:RESULT FOO :SOURCE (23 . 26) :CHILDREN NIL)
-;;   (:RESULT NIL :SOURCE (27 . 29) :CHILDREN NIL)
-;;   (:RESULT :BAR :SOURCE (30 . 34) :CHILDREN NIL)))
-
-;; ((:REASON (:LINE-COMMENT . 2) :SOURCE (0 . 16)))

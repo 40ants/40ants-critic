@@ -49,6 +49,7 @@
           collect (get-piece-of-file stream from to)))
 
 
+;; ignore-critiques: function-too-long
 (defun read-forms (filename &aux (client (make-instance 'parse-client)))
   "Returns a list where each item is a list of three items.
    First item is a form and second is a list of critiques to ignore.
@@ -79,7 +80,7 @@
         (loop with *package* = (find-package "COMMON-LISP-USER")
               for (code critiques-to-ignore) = (read-form)
                 then (read-form)
-              until (eq code 'eof)
+              until (eql code 'eof)
               when (and (consp code)
                         (eql (car code)
                              'in-package))
