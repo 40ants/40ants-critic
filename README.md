@@ -80,16 +80,27 @@ lisp-critic reblocks-text-editor
         RESULT
         (CL-PPCRE:REGEX-REPLACE-ALL +ZERO-WIDTH-SPACE+ RESULT ""))))
 ----------------------------------------------------------------------
-There's no need for LET* here. Use LET unless you can't.
+[let*-single]: There's no need for LET* here. Use LET unless you can't.
 ----------------------------------------------------------------------
 ```
+You can ignore all `let*-single` warnings by adding `--ignore 'let*-single'`
+command line option or put a special comment before the top-level form:
+
+```lisp
+;; ignore-critiques: let*-single
+(defun remove-html-tags (html-string)
+   (let* ((result
+     ...
+```
+Such comment can enumerate a multiple comma-separated critiques names.
+
 <a id="x-2840ANTS-CRITIC-3A-3A-40API-2040ANTS-DOC-2FLOCATIVES-3ASECTION-29"></a>
 
 ## API
 
 <a id="x-2840ANTS-CRITIC-3ACRITIQUE-ASDF-SYSTEM-20FUNCTION-29"></a>
 
-### [function](3f06) `40ants-critic:critique-asdf-system` name &key (out \*standard-output\*) (ignore nil)
+### [function](fb3d) `40ants-critic:critique-asdf-system` name &key (out \*standard-output\*) (ignore nil)
 
 Outputs advices on how given `ASDF` system can be improved.
 This function analyzes all lisp files of the given system and
@@ -110,7 +121,7 @@ Result of the function is number of found problems.
 [c8a0]: https://40ants.com/40ants-critic/#x-2840ANTS-CRITIC-3ACRITIQUE-ASDF-SYSTEM-20FUNCTION-29
 [240b]: https://40ants.com/ci/#x-2840ANTS-CI-3A-3A-40CRITIC-2040ANTS-DOC-2FLOCATIVES-3ASECTION-29
 [4062]: https://github.com/40ants/40ants-critic
-[3f06]: https://github.com/40ants/40ants-critic/blob/6e5207f737e8337eb67aa2cad184aa75eb3ffc21/src/critic.lisp#L134
+[fb3d]: https://github.com/40ants/40ants-critic/blob/1b4991883db4f64b86996bd5db6cb13f38478e5f/src/critic.lisp#L134
 [795a]: https://github.com/roswell/roswell
 [2a0d]: https://ultralisp.org
 
