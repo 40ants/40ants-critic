@@ -50,8 +50,10 @@
 
 
 (defun read-forms (filename &aux (client (make-instance 'parse-client)))
-  "Returns a list where each item is a list of two items.
+  "Returns a list where each item is a list of three items.
    First item is a form and second is a list of critiques to ignore.
+   Third item is a package of the file. If there is no IN-PACKAGE
+   for, then COMMON-LISP-USER will be returned.
 
    Ignored critiques are extracted from the preceeding comments.
    Comments should be in form:
@@ -83,4 +85,4 @@
                              'in-package))
                 do (setf *package*
                          (find-package (second code)))
-              collect (list code critiques-to-ignore))))))
+              collect (list code critiques-to-ignore *package*))))))

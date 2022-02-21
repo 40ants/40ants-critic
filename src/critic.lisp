@@ -110,7 +110,7 @@
   (let ((filename-already-printed nil)
         (problems-count 0))
     
-    (loop for (code form-ignore) in (read-forms filename)
+    (loop for (code form-ignore package) in (read-forms filename)
           for all-critiques = (lisp-critic::generate-critiques code names)
           for critiques = (remove-ignored all-critiques
                                           (append ignore
@@ -122,7 +122,8 @@
                
                (lisp-critic::print-separator out #\*)
                
-               (let ((*print-right-margin* lisp-critic::*output-width*))
+               (let ((*print-right-margin* lisp-critic::*output-width*)
+                     (*package* package))
                  (pprint code out))
                (print-critique-responses critiques out)
                (incf problems-count
