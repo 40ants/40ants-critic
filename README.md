@@ -47,6 +47,12 @@ To load "40ants-critic":
 Found 1 scripts: lisp-critic
 /Users/art/.roswell/bin/lisp-critic
 ```
+Also, you might use this checker in your `CI` pipeline on the GitHub.
+It might check all pull-requests to ensure the code will remain clean.
+
+To learn more about using it as a part of the GitHub workflow, read
+[`40ants-ci::@critic`][240b] section.
+
 <a id="x-2840ANTS-CRITIC-3A-3A-40USAGE-2040ANTS-DOC-2FLOCATIVES-3ASECTION-29"></a>
 
 ## Usage
@@ -83,7 +89,7 @@ There's no need for LET* here. Use LET unless you can't.
 
 <a id="x-2840ANTS-CRITIC-3ACRITIQUE-ASDF-SYSTEM-20FUNCTION-29"></a>
 
-### [function](1003) `40ants-critic:critique-asdf-system` name &key (out \*standard-output\*) (ignore nil)
+### [function](3f06) `40ants-critic:critique-asdf-system` name &key (out \*standard-output\*) (ignore nil)
 
 Outputs advices on how given `ASDF` system can be improved.
 This function analyzes all lisp files of the given system and
@@ -102,8 +108,9 @@ Result of the function is number of found problems.
 
 [821a]: https://40ants.com/40ants-critic/
 [c8a0]: https://40ants.com/40ants-critic/#x-2840ANTS-CRITIC-3ACRITIQUE-ASDF-SYSTEM-20FUNCTION-29
+[240b]: https://40ants.com/ci/#x-2840ANTS-CI-3A-3A-40CRITIC-2040ANTS-DOC-2FLOCATIVES-3ASECTION-29
 [4062]: https://github.com/40ants/40ants-critic
-[1003]: https://github.com/40ants/40ants-critic/blob/90566a3548a2569df45db69b2f3c2ae2be37da58/src/critic.lisp#L134
+[3f06]: https://github.com/40ants/40ants-critic/blob/6e5207f737e8337eb67aa2cad184aa75eb3ffc21/src/critic.lisp#L134
 [795a]: https://github.com/roswell/roswell
 [2a0d]: https://ultralisp.org
 
