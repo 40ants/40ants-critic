@@ -12,7 +12,7 @@
 
             Comments should be in the form like this:
 
-            ```lisp
+            ```
             ;; ignore-critiques: x-minus-1, optionals, needless-and
             ```
 

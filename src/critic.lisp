@@ -255,9 +255,23 @@ To learn more about using it as a part of the GitHub workflow, read
            RESULT
            (CL-PPCRE:REGEX-REPLACE-ALL +ZERO-WIDTH-SPACE+ RESULT \"\"))))
    ----------------------------------------------------------------------
-   There's no need for LET* here. Use LET unless you can't.
+   [let*-single]: There's no need for LET* here. Use LET unless you can't.
    ----------------------------------------------------------------------
-   ```")
+   ```
+
+   You can ignore all `let*-single` warnings by adding `--ignore 'let*-single'`
+   command line option or put a special comment before the top-level form:
+
+   ```lisp
+   ;; ignore-critiques: let*-single
+   (defun remove-html-tags (html-string)
+      (let* ((result
+        ...
+   ```
+
+   Such comment can enumerate a multiple comma-separated critiques names.
+"
+  )
 
 
 (defsection @api (:title "API")
