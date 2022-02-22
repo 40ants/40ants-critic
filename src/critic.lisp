@@ -1,5 +1,3 @@
-;; ignore-critiques: blah, minor
-;; ignore-critiques: another, foo, bar
 (uiop:define-package #:40ants-critic
   (:use #:cl)
   (:nicknames #:40ants-critic/critic)
