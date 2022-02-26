@@ -16,7 +16,8 @@
 (defmain (main :program-name "lisp-critic")
     ((ignore "Comma-separated list of codes to ignore.")
      asdf-system)
-  (let* ((ignore (split-by-comma ignore))
+  (let* ((ignore (when ignore
+                   (split-by-comma ignore)))
          (num-problems (40ants-critic:critique-asdf-system asdf-system
                                                            :ignore ignore)))
     (unless (zerop num-problems)
