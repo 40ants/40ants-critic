@@ -136,9 +136,23 @@
     (values problems-count)))
 
 
+(defparameter pattern-names
+  (mapcar #'(lambda (rule) (string-downcase (symbol-name rule)))
+          (lisp-critic:get-pattern-names))
+  "List of all LISP-CRITIC pattern names as lowercase strings")
+
+(defun get-blacklist (whitelist)
+  "Returns list of all LISP-CRITIC patterns, excluding WHITELIST arguments."
+  (let ((blacklist nil))
+    (dolist (pattern pattern-names)
+      (unless (member pattern whitelist :test #'string=)
+        (push pattern blacklist)))
+    blacklist))
+
 (defun critique-asdf-system (name &key
                                     (out *standard-output*)
-                                    (ignore nil))
+                                    (ignore nil)
+                                    (whitelist nil))
   "Outputs advices on how given ASDF system can be improved.
    This function analyzes all lisp files of the given system and
    outputs advices on how code might be improved.
@@ -147,6 +161,11 @@
 
    IGNORE argument can be a list of string. Each string should be a code
    shown in the square brackets in the critique output.
+
+   WHITELIST argument can be a list of string. Each string should be a code
+   shown in the square brackets in the critique output.
+
+   Only IGNORE or WHITELIST can be used. Not both at the same time.
 
    OUT argument is optional. It should be an output stream to write
    advices to.
@@ -157,10 +176,16 @@
   #-quicklisp
   (asdf:load-system name)
   
+  (when (and ignore whitelist)
+    (error "Please only specify IGNORE or WHITELIST, not both"))
+
   (loop for filename in (asdf-system-files name)
-        for num-problems = (critique-file filename
-                                          :out out
-                                          :ignore ignore)
+        for num-problems = (critique-file
+                            filename
+                            :out out
+                            :ignore (cond (whitelist (get-blacklist whitelist))
+                                          (ignore ignore)
+                                          (t nil)))
         summing num-problems))
 
 
