@@ -267,6 +267,17 @@ To learn more about using it as a part of the GitHub workflow, read
    this function and LISP-CRITIC:CRITIQUE-FILE function is that the latter
    outputs all forms from the file even if there is no any advices.
 
+   CRITIQUE-ASDF-SYSTEM has IGNORE and WHITELIST keyword parameters. The
+   arguments can be a list of strings. Each string should be a code
+   shown in the square brackets in the critique output. IGNORE arguments will
+   be ignored, while WHITELIST arguments will be the only results. You can
+   only supply either IGNORE or WHITELIST, not both.
+
+   ```lisp
+   (critique-asdf-system :lisp-critic :ignore '(\"let*-single\"))
+   (critique-asdf-system :lisp-critic :whitelist '(\"let*-single\" \"needless-shiftf\"))
+   ```
+
    Also, CRITIQUE-ASDF-SYSTEM returns a number of found problems which is useful
    for CI pipelines. For example, `lisp-critic` script uses this number to report
    that the unix command was failed:
@@ -291,6 +302,38 @@ To learn more about using it as a part of the GitHub workflow, read
 
    You can ignore all `let*-single` warnings by adding `--ignore 'let*-single'`
    command line option or put a special comment before the top-level form:
+
+   You can ignore all `let*-single` warnings by adding `--ignore 'let*-single'`
+
+   ```bash
+   lisp-critic --ignore 'let*-single' lisp-critic
+   ```
+
+   or ignore all `if-no-else` and `needless-shiftf` warnings by adding
+
+   ```bash
+   lisp-critic --ignore 'if-no-else,needless-shiftf' lisp-critic
+   ```
+
+   in the command line. Alternatively you can use the short version `-i`
+   instead of `--ignore`.
+
+   You can whitelist `let*-single` warnings by adding `--whitelist 'let*-single'`
+
+   ```bash
+   lisp-critic --whitelist 'let*-single' lisp-critic
+   ```
+
+   or whitelist `if-no-else` and `needless-shiftf` warnings by adding
+
+   ```bash
+   lisp-critic --whitelist 'if-no-else,needless-shiftf' lisp-critic
+   ```
+
+   in the command line. Alternatively you can use the short version `-w`
+   instead of `--whitelist`.
+
+   To ignore a top-level-form, you can put a special comment before:
 
    ```lisp
    ;; ignore-critiques: let*-single
