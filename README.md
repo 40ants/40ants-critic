@@ -62,6 +62,16 @@ To get some advices, use [`critique-asdf-system`][c8a0] function. Difference bet
 this function and `LISP-CRITIC:CRITIQUE-FILE` function is that the latter
 outputs all forms from the file even if there is no any advices.
 
+[`critique-asdf-system`][c8a0] has `IGNORE` and `WHITELIST` keyword parameters. The
+arguments can be a list of strings. Each string should be a code
+shown in the square brackets in the critique output. `IGNORE` arguments will
+be ignored, while `WHITELIST` arguments will be the only results. You can
+only supply either `IGNORE` or `WHITELIST`, not both.
+
+```lisp
+(critique-asdf-system :lisp-critic :ignore '("let*-single"))
+(critique-asdf-system :lisp-critic :whitelist '("let*-single" "needless-shiftf"))
+```
 Also, [`critique-asdf-system`][c8a0] returns a number of found problems which is useful
 for `CI` pipelines. For example, `lisp-critic` script uses this number to report
 that the unix command was failed:
@@ -86,6 +96,34 @@ lisp-critic reblocks-text-editor
 You can ignore all `let*-single` warnings by adding `--ignore 'let*-single'`
 command line option or put a special comment before the top-level form:
 
+You can ignore all `let*-single` warnings by adding `--ignore 'let*-single'`
+
+```bash
+lisp-critic --ignore 'let*-single' lisp-critic
+```
+or ignore all `if-no-else` and `needless-shiftf` warnings by adding
+
+```bash
+lisp-critic --ignore 'if-no-else,needless-shiftf' lisp-critic
+```
+in the command line. Alternatively you can use the short version `-i`
+instead of `--ignore`.
+
+You can whitelist `let*-single` warnings by adding `--whitelist 'let*-single'`
+
+```bash
+lisp-critic --whitelist 'let*-single' lisp-critic
+```
+or whitelist `if-no-else` and `needless-shiftf` warnings by adding
+
+```bash
+lisp-critic --whitelist 'if-no-else,needless-shiftf' lisp-critic
+```
+in the command line. Alternatively you can use the short version `-w`
+instead of `--whitelist`.
+
+To ignore a top-level-form, you can put a special comment before:
+
 ```lisp
 ;; ignore-critiques: let*-single
 (defun remove-html-tags (html-string)
@@ -100,7 +138,7 @@ Such comment can enumerate a multiple comma-separated critiques names.
 
 <a id="x-2840ANTS-CRITIC-3ACRITIQUE-ASDF-SYSTEM-20FUNCTION-29"></a>
 
-### [function](6bb1) `40ants-critic:critique-asdf-system` name &key (out \*standard-output\*) (ignore nil)
+### [function](411f) `40ants-critic:critique-asdf-system` name &key (out \*standard-output\*) (ignore nil) (whitelist nil)
 
 Outputs advices on how given `ASDF` system can be improved.
 This function analyzes all lisp files of the given system and
@@ -110,6 +148,11 @@ outputs advices on how code might be improved.
 
 `IGNORE` argument can be a list of string. Each string should be a code
 shown in the square brackets in the critique output.
+
+`WHITELIST` argument can be a list of string. Each string should be a code
+shown in the square brackets in the critique output.
+
+Only `IGNORE` or `WHITELIST` can be used. Not both at the same time.
 
 `OUT` argument is optional. It should be an output stream to write
 advices to.
@@ -121,7 +164,7 @@ Result of the function is number of found problems.
 [c8a0]: https://40ants.com/40ants-critic/#x-2840ANTS-CRITIC-3ACRITIQUE-ASDF-SYSTEM-20FUNCTION-29
 [240b]: https://40ants.com/ci/#x-2840ANTS-CI-3A-3A-40CRITIC-2040ANTS-DOC-2FLOCATIVES-3ASECTION-29
 [4062]: https://github.com/40ants/40ants-critic
-[6bb1]: https://github.com/40ants/40ants-critic/blob/52997926b6dd9d8d8e9c366c00d6777327dce519/src/critic.lisp#L139
+[411f]: https://github.com/40ants/40ants-critic/blob/21f6afdf43bf1c7f541d113d55917e1f7b4e4b02/src/critic.lisp#L152
 [795a]: https://github.com/roswell/roswell
 [2a0d]: https://ultralisp.org
 
