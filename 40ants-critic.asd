@@ -6,5 +6,6 @@
   :homepage "https://40ants.com/40ants-critic/"
   :source-control (:git "https://github.com/40ants/40ants-critic")
   :pathname "src"
-  :depends-on ("40ants-critic/critic"
+  :depends-on ("uiop"
+               "40ants-critic/critic"
                "40ants-critic/changelog"))
