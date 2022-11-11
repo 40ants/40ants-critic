@@ -34,7 +34,8 @@
 
 
 (defun asdf-system-files (system)
-  (let ((primary-system-name (asdf:primary-system-name system)))
+  (let ((primary-system-name (asdf:primary-system-name system))
+        (results nil))
     (labels ((recurse (name)
                (let ((system (ensure-asdf-system name)))
                  (when (and system
@@ -49,7 +50,10 @@
                                  append (recurse component)))))))
       (loop for component in (recurse system)
             when (typep component 'asdf:cl-source-file)
-              collect (asdf:component-pathname component)))))
+              do (pushnew (asdf:component-pathname component)
+                          results
+                          :test #'equal))
+      (values results))))
 
 
 (defun critique-name (note)
