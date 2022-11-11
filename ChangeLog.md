@@ -2,6 +2,15 @@
 
 # ChangeLog
 
+<a id="x-2840ANTS-CRITIC-2FCHANGELOG-3A-3A-7C0-2E4-2E1-7C-2040ANTS-DOC-2FLOCATIVES-3ASECTION-29"></a>
+
+## 0.4.1 (2022-11-10)
+
+* Internal function asdf-system-files was fixed and now retursn unique filenames.
+
+Previosly multiple copies of the same file returned for some package inferred `ASDF` systems
+which produced multiple copies of critiqies and slowed down the shole process.
+
 <a id="x-2840ANTS-CRITIC-2FCHANGELOG-3A-3A-7C0-2E4-2E0-7C-2040ANTS-DOC-2FLOCATIVES-3ASECTION-29"></a>
 
 ## 0.4.0 (2022-02-22)
