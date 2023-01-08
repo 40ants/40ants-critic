@@ -122,6 +122,10 @@ lisp-critic --whitelist 'if-no-else,needless-shiftf' lisp-critic
 in the command line. Alternatively you can use the short version `-w`
 instead of `--whitelist`.
 
+```bash
+lisp-critic -w 'let*-single' lisp-critic
+lisp-critic -w 'if-no-else,needless-shiftf' lisp-critic
+```
 To ignore a top-level-form, you can put a special comment before:
 
 ```lisp
@@ -138,7 +142,7 @@ Such comment can enumerate a multiple comma-separated critiques names.
 
 <a id="x-2840ANTS-CRITIC-3ACRITIQUE-ASDF-SYSTEM-20FUNCTION-29"></a>
 
-### [function](fde9) `40ants-critic:critique-asdf-system` name &key (out \*standard-output\*) (ignore nil) (whitelist nil)
+### [function](56e1) `40ants-critic:critique-asdf-system` name &key (out \*standard-output\*) (ignore nil) (whitelist nil)
 
 Outputs advices on how given `ASDF` system can be improved.
 This function analyzes all lisp files of the given system and
@@ -164,7 +168,7 @@ Result of the function is number of found problems.
 [c8a0]: https://40ants.com/40ants-critic/#x-2840ANTS-CRITIC-3ACRITIQUE-ASDF-SYSTEM-20FUNCTION-29
 [240b]: https://40ants.com/ci/#x-2840ANTS-CI-3A-3A-40CRITIC-2040ANTS-DOC-2FLOCATIVES-3ASECTION-29
 [4062]: https://github.com/40ants/40ants-critic
-[fde9]: https://github.com/40ants/40ants-critic/blob/69968e06d98e116158c0d4a7f350ef2a23a282bf/src/critic.lisp#L156
+[56e1]: https://github.com/40ants/40ants-critic/blob/6bc9d2287e1a0de62d577730a1f074e9e78ceb00/src/critic.lisp#L148
 [795a]: https://github.com/roswell/roswell
 [2a0d]: https://ultralisp.org
 
