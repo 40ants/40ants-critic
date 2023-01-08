@@ -139,19 +139,11 @@
     
     (values problems-count)))
 
-
-(defparameter pattern-names
-  (mapcar #'(lambda (rule) (string-downcase (symbol-name rule)))
-          (lisp-critic:get-pattern-names))
-  "List of all LISP-CRITIC pattern names as lowercase strings")
-
 (defun get-blacklist (whitelist)
   "Returns list of all LISP-CRITIC patterns, excluding WHITELIST arguments."
-  (let ((blacklist nil))
-    (dolist (pattern pattern-names)
-      (unless (member pattern whitelist :test #'string=)
-        (push pattern blacklist)))
-    blacklist))
+  (loop for pattern in (lisp-critic:get-pattern-names)
+        unless (member pattern whitelist :test #'string-equal)
+          collect (string-downcase pattern)))
 
 (defun critique-asdf-system (name &key
                                     (out *standard-output*)
