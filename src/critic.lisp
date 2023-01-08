@@ -329,6 +329,11 @@ To learn more about using it as a part of the GitHub workflow, read
    in the command line. Alternatively you can use the short version `-w`
    instead of `--whitelist`.
 
+   ```bash
+   lisp-critic -w 'let*-single' lisp-critic
+   lisp-critic -w 'if-no-else,needless-shiftf' lisp-critic
+   ```
+
    To ignore a top-level-form, you can put a special comment before:
 
    ```lisp
