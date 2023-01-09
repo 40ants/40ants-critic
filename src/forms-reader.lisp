@@ -1,7 +1,7 @@
 (uiop:define-package #:40ants-critic/forms-reader
   (:use #:cl)
   (:import-from #:cl-ppcre)
-  (:import-from #:eclector))
+  (:import-from #:eclector.parse-result))
 (in-package #:40ants-critic/forms-reader)
 
 
