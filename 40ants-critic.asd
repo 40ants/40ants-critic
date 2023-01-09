@@ -11,4 +11,4 @@
                "40ants-critic/changelog"))
 
 
-(register-system-packages "eclector" (list "eclector.parse-result"))
+(register-system-packages "eclector" (list "ECLECTOR.PARSE-RESULT"))
