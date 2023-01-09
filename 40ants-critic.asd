@@ -9,3 +9,6 @@
   :depends-on ("uiop"
                "40ants-critic/critic"
                "40ants-critic/changelog"))
+
+
+(register-system-packages "eclector" (list "eclector.parse-result"))
