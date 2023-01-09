@@ -15,11 +15,16 @@
 
 (defmain (main :program-name "lisp-critic")
     ((ignore "Comma-separated list of codes to ignore.")
+     (whitelist "Comma-separated list of codes to whitelist.")
      asdf-system)
   (let* ((ignore (when ignore
                    (split-by-comma ignore)))
-         (num-problems (40ants-critic:critique-asdf-system asdf-system
-                                                           :ignore ignore)))
+         (whitelist (when whitelist
+                      (split-by-comma whitelist)))
+         (num-problems (40ants-critic:critique-asdf-system
+                        asdf-system
+                        :ignore ignore
+                        :whitelist whitelist)))
     (unless (zerop num-problems)
       (format t "~2&Total: ~A problem~:P~%"
               num-problems))

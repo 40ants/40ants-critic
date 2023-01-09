@@ -139,10 +139,16 @@
     
     (values problems-count)))
 
+(defun get-blacklist (whitelist)
+  "Returns list of all LISP-CRITIC patterns, excluding WHITELIST arguments."
+  (loop for pattern in (lisp-critic:get-pattern-names)
+        unless (member pattern whitelist :test #'string-equal)
+          collect (string-downcase pattern)))
 
 (defun critique-asdf-system (name &key
                                     (out *standard-output*)
-                                    (ignore nil))
+                                    (ignore nil)
+                                    (whitelist nil))
   "Outputs advices on how given ASDF system can be improved.
    This function analyzes all lisp files of the given system and
    outputs advices on how code might be improved.
@@ -151,6 +157,11 @@
 
    IGNORE argument can be a list of string. Each string should be a code
    shown in the square brackets in the critique output.
+
+   WHITELIST argument can be a list of string. Each string should be a code
+   shown in the square brackets in the critique output.
+
+   Only IGNORE or WHITELIST can be used. Not both at the same time.
 
    OUT argument is optional. It should be an output stream to write
    advices to.
@@ -161,10 +172,16 @@
   #-quicklisp
   (asdf:load-system name)
   
+  (when (and ignore whitelist)
+    (error "Please only specify IGNORE or WHITELIST, not both"))
+
   (loop for filename in (asdf-system-files name)
-        for num-problems = (critique-file filename
-                                          :out out
-                                          :ignore ignore)
+        for num-problems = (critique-file
+                            filename
+                            :out out
+                            :ignore (cond (whitelist (get-blacklist whitelist))
+                                          (ignore ignore)
+                                          (t nil)))
         summing num-problems))
 
 
@@ -246,6 +263,17 @@ To learn more about using it as a part of the GitHub workflow, read
    this function and LISP-CRITIC:CRITIQUE-FILE function is that the latter
    outputs all forms from the file even if there is no any advices.
 
+   CRITIQUE-ASDF-SYSTEM has IGNORE and WHITELIST keyword parameters. The
+   arguments can be a list of strings. Each string should be a code
+   shown in the square brackets in the critique output. IGNORE arguments will
+   be ignored, while WHITELIST arguments will be the only results. You can
+   only supply either IGNORE or WHITELIST, not both.
+
+   ```lisp
+   (critique-asdf-system :lisp-critic :ignore '(\"let*-single\"))
+   (critique-asdf-system :lisp-critic :whitelist '(\"let*-single\" \"needless-shiftf\"))
+   ```
+
    Also, CRITIQUE-ASDF-SYSTEM returns a number of found problems which is useful
    for CI pipelines. For example, `lisp-critic` script uses this number to report
    that the unix command was failed:
@@ -270,6 +298,43 @@ To learn more about using it as a part of the GitHub workflow, read
 
    You can ignore all `let*-single` warnings by adding `--ignore 'let*-single'`
    command line option or put a special comment before the top-level form:
+
+   You can ignore all `let*-single` warnings by adding `--ignore 'let*-single'`
+
+   ```bash
+   lisp-critic --ignore 'let*-single' lisp-critic
+   ```
+
+   or ignore all `if-no-else` and `needless-shiftf` warnings by adding
+
+   ```bash
+   lisp-critic --ignore 'if-no-else,needless-shiftf' lisp-critic
+   ```
+
+   in the command line. Alternatively you can use the short version `-i`
+   instead of `--ignore`.
+
+   You can whitelist `let*-single` warnings by adding `--whitelist 'let*-single'`
+
+   ```bash
+   lisp-critic --whitelist 'let*-single' lisp-critic
+   ```
+
+   or whitelist `if-no-else` and `needless-shiftf` warnings by adding
+
+   ```bash
+   lisp-critic --whitelist 'if-no-else,needless-shiftf' lisp-critic
+   ```
+
+   in the command line. Alternatively you can use the short version `-w`
+   instead of `--whitelist`.
+
+   ```bash
+   lisp-critic -w 'let*-single' lisp-critic
+   lisp-critic -w 'if-no-else,needless-shiftf' lisp-critic
+   ```
+
+   To ignore a top-level-form, you can put a special comment before:
 
    ```lisp
    ;; ignore-critiques: let*-single
