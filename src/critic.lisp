@@ -209,6 +209,7 @@
                                    "MIT"
                                    "LISP-CRITIC"
                                    "LISP-CRITIC:CRITIQUE-FILE")
+                    :external-docs ("https://40ants.com/ci/")
                     :external-links (("LISP-CRITIC" . "https://github.com/g000001/lisp-critic")))
   (40ants-critic system)
   (@installation section)
@@ -253,7 +254,7 @@ Also, you might use this checker in your CI pipeline on the GitHub.
 It might check all pull-requests to ensure the code will remain clean.
 
 To learn more about using it as a part of the GitHub workflow, read
-40ANTS-CI::@CRITIC section.
+40ANTS-CI-DOCS/INDEX::@CRITIC section.
 ")
 
 
