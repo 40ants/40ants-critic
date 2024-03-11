@@ -7,14 +7,11 @@
 ## 40ANTS-CRITIC ASDF System Details
 
 * Description: A wrapper around `LISP-CRITIC` which provides a better interface to analyze `ASDF` systems and a command-line interface.
-
 * Licence: `MIT`
-
 * Author: Alexander Artemenko <svetlyak.40wt@gmail.com>
-
 * Homepage: [https://40ants.com/40ants-critic/][821a]
-
 * Source control: [GIT][4062]
+* Depends on: [40ants-doc][2c00], [cl-ppcre][49b9], [docs-config][ce67], [eclector][8f25], [lisp-critic][ee56], [uiop][5274]
 
 <a id="x-2840ANTS-CRITIC-3A-3A-40INSTALLATION-2040ANTS-DOC-2FLOCATIVES-3ASECTION-29"></a>
 
@@ -51,7 +48,7 @@ Also, you might use this checker in your `CI` pipeline on the GitHub.
 It might check all pull-requests to ensure the code will remain clean.
 
 To learn more about using it as a part of the GitHub workflow, read
-[`40ants-ci::@critic`][240b] section.
+[`40ants-ci-docs/index::@critic`][371b] section.
 
 <a id="x-2840ANTS-CRITIC-3A-3A-40USAGE-2040ANTS-DOC-2FLOCATIVES-3ASECTION-29"></a>
 
@@ -142,7 +139,7 @@ Such comment can enumerate a multiple comma-separated critiques names.
 
 <a id="x-2840ANTS-CRITIC-3ACRITIQUE-ASDF-SYSTEM-20FUNCTION-29"></a>
 
-### [function](1ded) `40ants-critic:critique-asdf-system` name &key (out \*standard-output\*) (ignore nil) (whitelist nil)
+### [function](a5f9) `40ants-critic:critique-asdf-system` name &key (out \*standard-output\*) (ignore nil) (whitelist nil)
 
 Outputs advices on how given `ASDF` system can be improved.
 This function analyzes all lisp files of the given system and
@@ -166,10 +163,16 @@ Result of the function is number of found problems.
 
 [821a]: https://40ants.com/40ants-critic/
 [c8a0]: https://40ants.com/40ants-critic/#x-2840ANTS-CRITIC-3ACRITIQUE-ASDF-SYSTEM-20FUNCTION-29
-[240b]: https://40ants.com/ci/#x-2840ANTS-CI-3A-3A-40CRITIC-2040ANTS-DOC-2FLOCATIVES-3ASECTION-29
+[371b]: https://40ants.com/ci/#x-2840ANTS-CI-DOCS-2FINDEX-3A-3A-40CRITIC-2040ANTS-DOC-2FLOCATIVES-3ASECTION-29
 [4062]: https://github.com/40ants/40ants-critic
-[1ded]: https://github.com/40ants/40ants-critic/blob/5bfc1c3df640d9713887e3888bc6a42207075eff/src/critic.lisp#L148
+[a5f9]: https://github.com/40ants/40ants-critic/blob/175fef8153466735440bd2ecb3ea03be7d6c51d6/src/critic.lisp#L148
 [795a]: https://github.com/roswell/roswell
+[2c00]: https://quickdocs.org/40ants-doc
+[49b9]: https://quickdocs.org/cl-ppcre
+[ce67]: https://quickdocs.org/docs-config
+[8f25]: https://quickdocs.org/eclector
+[ee56]: https://quickdocs.org/lisp-critic
+[5274]: https://quickdocs.org/uiop
 [2a0d]: https://ultralisp.org
 
 * * *
