@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<rss version="2.0">
+    <channel>
+        <title>40ants-critic ChangeLog</title>
+        <link>https://40ants.com/40ants-critic/</link>
+        <generator>xml-emitter</generator>
+        <language>en-us</language>
+        <item>
+            <title>0.4.1  (2022-11-10)</title>
+            <description>&lt;ul&gt;&lt;li&gt;&lt;p&gt;Internal function asdf-system-files was fixed and now retursn unique filenames.&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;Previosly multiple copies of the same file returned for some package inferred &lt;code&gt;ASDF&lt;/code&gt; systems
+which produced multiple copies of critiqies and slowed down the shole process.&lt;/p&gt;</description>
+            <pubDate>Thu, 10 Nov 2022 00:00:00 +0000</pubDate>
+        </item>
+        <item>
+            <title>0.4.0  (2022-02-22)</title>
+            <description>&lt;ul&gt;&lt;li&gt;&lt;p&gt;Forms are printed in a more readable way now.
+Their symbols are printed relative to the file&apos;s package.&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;</description>
+            <pubDate>Tue, 22 Feb 2022 00:00:00 +0000</pubDate>
+        </item>
+        <item>
+            <title>0.3.0  (2022-02-21)</title>
+            <description>&lt;ul&gt;&lt;li&gt;&lt;p&gt;Now you can ignore critiques by adding a comment before a top-level form.&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;Comments should be in the form like this:&lt;/p&gt;&lt;p&gt;&lt;code&gt;
+  ;; ignore-critiques: x-minus-1, optionals, needless-and
+&lt;/code&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;&lt;p&gt;Command utility now outputs total number of found problems.&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;</description>
+            <pubDate>Mon, 21 Feb 2022 00:00:00 +0000</pubDate>
+        </item>
+        <item>
+            <title>0.2.0  (2022-02-20)</title>
+            <description>&lt;p&gt;Now it is possible to ignore some critiques, using &lt;code&gt;IGNORE&lt;/code&gt; argument
+of &lt;a href=&quot;https://40ants.com/40ants-critic/#x-2840ANTS-CRITIC-3ACRITIQUE-ASDF-SYSTEM-20FUNCTION-29&quot; data-document=&quot;https://40ants.com/40ants-critic/&quot; data-node=&quot;x-2840ANTS-CRITIC-3ACRITIQUE-ASDF-SYSTEM-20FUNCTION-29&quot;&gt;&lt;code&gt;40ants-critic:critique-asdf-system&lt;/code&gt;&lt;/a&gt; function or &lt;code&gt;--ignore&lt;/code&gt; command line option.&lt;/p&gt;</description>
+            <pubDate>Sun, 20 Feb 2022 00:00:00 +0000</pubDate>
+        </item>
+        <item>
+            <title>0.1.0  (2022-02-20)</title>
+            <description>&lt;p&gt;Initial version.&lt;/p&gt;</description>
+            <pubDate>Sun, 20 Feb 2022 00:00:00 +0000</pubDate>
+        </item>
+    </channel>
+</rss>
