@@ -2,6 +2,22 @@
 
 # ChangeLog
 
+<a id="x-2840ANTS-CRITIC-2FCHANGELOG-3A-3A-7C0-2E5-2E0-7C-2040ANTS-DOC-2FLOCATIVES-3ASECTION-29"></a>
+
+## 0.5.0 (2024-07-28)
+
+* Fixed to work with latest Eclector.
+
+Before this fix, with latest Eclector 40ants-critic didn't compile ending with this error:
+
+```
+The generic function
+#<STANDARD-GENERIC-FUNCTION ECLECTOR.PARSE-RESULT:MAKE-SKIPPED-INPUT-RESULT (2)>
+takes 5 required arguments; was asked to find a method with
+specializers (PARSE-CLIENT T T T)
+```
+because the generic-function signature was changed.
+
 <a id="x-2840ANTS-CRITIC-2FCHANGELOG-3A-3A-7C0-2E4-2E1-7C-2040ANTS-DOC-2FLOCATIVES-3ASECTION-29"></a>
 
 ## 0.4.1 (2022-11-10)
