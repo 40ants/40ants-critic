@@ -13,7 +13,7 @@
   result)
 
 (defmethod eclector.parse-result:make-skipped-input-result
-    ((client parse-client) (stream t) (reason t) (source t))
+    ((client parse-client) (stream t) (reason t) (children t) (source t))
   (list :reason reason :source source))
 
 
