@@ -7,6 +7,20 @@
 
 
 (defchangelog (:ignore-words ("ASDF"))
+  (0.5.0 2024-07-28
+         "* Fixed to work with latest Eclector.
+
+            Before this fix, with latest Eclector 40ants-critic didn't compile ending with this error:
+
+            ```
+            The generic function
+            #<STANDARD-GENERIC-FUNCTION ECLECTOR.PARSE-RESULT:MAKE-SKIPPED-INPUT-RESULT (2)>
+            takes 5 required arguments; was asked to find a method with
+            specializers (PARSE-CLIENT T T T)
+            ```
+
+            because the generic-function signature was changed.
+")
   (0.4.1 2022-11-10
          "* Internal function asdf-system-files was fixed and now retursn unique filenames.
 
