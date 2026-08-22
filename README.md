@@ -139,7 +139,7 @@ Such comment can enumerate a multiple comma-separated critiques names.
 
 <a id="x-2840ANTS-CRITIC-3ACRITIQUE-ASDF-SYSTEM-20FUNCTION-29"></a>
 
-### [function](3a3c) `40ants-critic:critique-asdf-system` name &key (out \*standard-output\*) (ignore nil) (whitelist nil)
+### [function](1a99) `40ants-critic:critique-asdf-system` name &key (out \*standard-output\*) (ignore nil) (whitelist nil)
 
 Outputs advices on how given `ASDF` system can be improved.
 This function analyzes all lisp files of the given system and
@@ -165,7 +165,7 @@ Result of the function is number of found problems.
 [c8a0]: https://40ants.com/40ants-critic/#x-2840ANTS-CRITIC-3ACRITIQUE-ASDF-SYSTEM-20FUNCTION-29
 [371b]: https://40ants.com/ci/#x-2840ANTS-CI-DOCS-2FINDEX-3A-3A-40CRITIC-2040ANTS-DOC-2FLOCATIVES-3ASECTION-29
 [4062]: https://github.com/40ants/40ants-critic
-[3a3c]: https://github.com/40ants/40ants-critic/blob/9c1927d4a15285104cb599842b2bdab68f0b0cfe/src/critic.lisp#L148
+[1a99]: https://github.com/40ants/40ants-critic/blob/7285984d0df07907eee66883b3bbcede98bf2ba4/src/critic.lisp#L148
 [795a]: https://github.com/roswell/roswell
 [2c00]: https://quickdocs.org/40ants-doc
 [49b9]: https://quickdocs.org/cl-ppcre
